@@ -1,8 +1,8 @@
 # VZaps Python SDK
 
-[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/vzaps.svg)](https://pypi.org/project/vzaps/)
-[![Python](https://img.shields.io/pypi/pyversions/vzaps.svg)](https://pypi.org/project/vzaps/)
+[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/vzaps.svg?logo=pypi&logoColor=white)](https://pypi.org/project/vzaps/)
+[![Python](https://img.shields.io/pypi/pyversions/vzaps.svg?logo=python&logoColor=white)](https://pypi.org/project/vzaps/)
 
 Official Python SDK for the VZaps public API.
 

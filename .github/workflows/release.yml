@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build without publishing"
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Check version tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          tag = "${{ github.ref_name }}"
+          version = re.search(r'__version__ = "([^"]+)"', Path("src/vzaps/__about__.py").read_text()).group(1)
+          assert tag == f"v{version}", f"{tag} does not match package version {version}"
+          PY
+      - name: Checks
+        run: |
+          ruff format --check .
+          ruff check .
+          mypy src tests
+          pytest --cov=vzaps --cov-report=term-missing
+      - name: Build
+        run: python -m build
+      - name: Twine check
+        run: python -m twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: write
+    if: startsWith(github.ref, 'refs/tags/') || inputs.dry_run == false
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

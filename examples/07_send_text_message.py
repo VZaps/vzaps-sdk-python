@@ -1,0 +1,15 @@
+from __future__ import annotations
+
+from _env import client_kwargs, instance_id, instance_token, required_env
+
+from vzaps import VZapsClient
+
+with VZapsClient(**client_kwargs()) as client:
+    print(
+        client.messages.send_text(
+            instance_id=instance_id(),
+            instance_token=instance_token(),
+            phone=required_env("VZAPS_PHONE"),
+            message="Hello from the VZaps Python SDK",
+        )
+    )

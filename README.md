@@ -1,8 +1,6 @@
 # VZaps Python SDK
 
-[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml) [![SDK Documentation](https://img.shields.io/badge/SDK-Documentation-blue)](https://docs.vzaps.com/en/sdk/python/installation) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/vzaps.svg?logo=pypi&logoColor=white)](https://pypi.org/project/vzaps/)
-[![Python](https://img.shields.io/pypi/pyversions/vzaps.svg?logo=python&logoColor=white)](https://pypi.org/project/vzaps/)
+[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/vzaps.svg?logo=pypi&logoColor=white)](https://pypi.org/project/vzaps/) [![Python](https://img.shields.io/pypi/pyversions/vzaps.svg?logo=python&logoColor=white)](https://pypi.org/project/vzaps/) [![SDK Documentation](https://img.shields.io/badge/SDK-Documentation-blue)](https://docs.vzaps.com/en/sdk/python/installation) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Official Python client for the [VZaps public API](https://docs.vzaps.com). Send WhatsApp messages, manage instances, configure webhooks, and subscribe to realtime events with a resource-oriented, sync and async interface.
 
@@ -17,7 +15,7 @@ Works in **Python 3.10+**. HTTP uses [httpx](https://www.python-httpx.org/); Web
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Authentication](#authentication)
-- [Configuration](#configuration)
+- [Client options](#client-options)
 - [Resources](#resources)
 - [Instance tokens](#instance-tokens)
 - [Webhooks](#webhooks)
@@ -118,14 +116,7 @@ token = client.auth.get_access_token()
 
 ---
 
-## Configuration
-
-The SDK connects to the VZaps production platform automatically:
-
-| Service | Endpoint |
-| --- | --- |
-| REST API | `https://api.vzaps.com` |
-| Realtime WebSocket | `wss://realtime.vzaps.com/events/ws` |
+## Client options
 
 Pass options to `VZapsClient(...)` or `AsyncVZapsClient(...)`:
 
@@ -133,15 +124,11 @@ Pass options to `VZapsClient(...)` or `AsyncVZapsClient(...)`:
 | --- | --- | --- | --- |
 | `client_token` | `str` | — | **Required.** Public client token from the dashboard. |
 | `client_secret` | `str` | — | **Required.** Client secret used to obtain JWTs. |
-| `base_url` | `str` | `https://api.vzaps.com` | REST API base URL. |
-| `realtime_url` | `str` | `wss://realtime.vzaps.com` | Realtime WebSocket base URL. |
 | `timeout` | `float` \| `httpx.Timeout` | `30.0` | HTTP request timeout in seconds. |
 | `token_skew_seconds` | `float` | `60.0` | Refresh JWT this many seconds before expiry. |
 | `limits` | `httpx.Limits` | — | Optional httpx connection pool limits. |
 | `user_agent` | `str` | package default | Optional `User-Agent` header on HTTP requests. |
 | `http_client` | `httpx.Client` \| `httpx.AsyncClient` | — | Custom httpx client (tests, proxies, tracing). |
-
-No host configuration is required — install the package, pass your credentials, and the client targets the production API and realtime service.
 
 ---
 
@@ -263,7 +250,7 @@ Event payloads (webhook and realtime) use **snake_case**, matching the platform.
 
 ## Realtime events
 
-Subscribe to the same events over WebSocket at **`wss://realtime.vzaps.com`**. This is the recommended path for in-app notifications, bots, and dashboards that need low-latency delivery without exposing a public webhook URL.
+Subscribe to the same events over the VZaps realtime WebSocket. This is the recommended path for in-app notifications, bots, and dashboards that need low-latency delivery without exposing a public webhook URL.
 
 Realtime subscriptions are async-first. Use `AsyncVZapsClient` and `async with client.events.subscribe(...)`:
 

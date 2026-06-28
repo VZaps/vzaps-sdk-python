@@ -363,7 +363,9 @@ class AsyncSessionsResource:
     def __init__(self, http: AsyncHttpClient) -> None:
         self._http = http
 
-    async def status(self, instance_id: str, *, instance_token: str | None = None) -> SessionStatusResponse:
+    async def status(
+        self, instance_id: str, *, instance_token: str | None = None
+    ) -> SessionStatusResponse:
         raw = await self._http.request(
             "GET",
             f"/instances/{quote_path(instance_id)}/session/status",

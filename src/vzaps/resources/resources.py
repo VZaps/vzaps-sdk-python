@@ -355,7 +355,9 @@ class SessionsResource:
     def __init__(self, http: HttpClient) -> None:
         self._http = http
 
-    def status(self, instance_id: str, *, instance_token: str | None = None) -> SessionStatusResponse:
+    def status(
+        self, instance_id: str, *, instance_token: str | None = None
+    ) -> SessionStatusResponse:
         raw = self._http.request(
             "GET",
             f"/instances/{quote_path(instance_id)}/session/status",

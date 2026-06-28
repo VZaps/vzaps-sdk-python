@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from vzaps.http import AsyncHttpClient, HttpMethod
+from vzaps.models import SessionStatusResponse
 
 from ._helpers import body_or_none, merge_request, quote_path, split_instance_request
 
@@ -362,12 +363,13 @@ class AsyncSessionsResource:
     def __init__(self, http: AsyncHttpClient) -> None:
         self._http = http
 
-    async def status(self, instance_id: str, *, instance_token: str | None = None) -> Any:
-        return await self._http.request(
+    async def status(self, instance_id: str, *, instance_token: str | None = None) -> SessionStatusResponse:
+        raw = await self._http.request(
             "GET",
             f"/instances/{quote_path(instance_id)}/session/status",
             instance_token=instance_token,
         )
+        return SessionStatusResponse.model_validate(raw)
 
     async def qr(self, instance_id: str, *, instance_token: str | None = None) -> Any:
         return await self._http.request(

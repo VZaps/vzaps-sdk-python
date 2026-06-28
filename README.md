@@ -203,6 +203,14 @@ Available send helpers include `send_text`, `send_image`, `send_audio`, `send_do
 | `list(request)` | `GET /instances/:id/group/list` | List groups (paginated). |
 | `get(request)` | `GET /instances/:id/group/info` | Get group metadata by `group_id`. |
 
+### `client.sessions`
+
+| Method | HTTP | Description |
+| --- | --- | --- |
+| `status(instance_id, *, instance_token=...)` | `GET /instances/:id/session/status` | Check WhatsApp login state and, when connected, live profile fields. |
+
+`GET /instances/{id}/session/status` returns `SessionStatusResponse`. When `data.connected` is `true`, `data` includes (in order) `phone`, `whatsapp_jid`, `push_name`, `business_name`, `business_profile`, `profile_picture_id`, `profile_picture_url`, `profile_url`, and optional `verified_name`, `about`, `website`. When disconnected, `data` only has `connected=False`.
+
 Other public namespaces are available as first-class resources too: `sessions`, `users`, `queues`, `typebots`, `chatwoot`, and `chats`.
 
 ### `client.request(method, path, ...)`

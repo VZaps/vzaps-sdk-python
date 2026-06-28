@@ -32,5 +32,39 @@ class RealtimeEvent(VZapsModel):
     data: dict[str, Any] = Field(default_factory=dict)
 
 
+class SessionBusinessCategory(VZapsModel):
+    id: str
+    name: str
+
+
+class SessionBusinessProfile(VZapsModel):
+    business_hours_timezone: str | None = None
+    categories: list[SessionBusinessCategory] | None = None
+    profile_options: dict[str, str] | None = None
+    address: str | None = None
+    email: str | None = None
+
+
+class SessionStatusData(VZapsModel):
+    connected: bool
+    phone: str | None = None
+    whatsapp_jid: str | None = None
+    push_name: str | None = None
+    business_name: str | None = None
+    business_profile: SessionBusinessProfile | None = None
+    profile_picture_id: str | None = None
+    profile_picture_url: str | None = None
+    profile_url: str | None = None
+    verified_name: str | None = None
+    about: str | None = None
+    website: str | None = None
+
+
+class SessionStatusResponse(VZapsModel):
+    code: int
+    success: bool
+    data: SessionStatusData
+
+
 JsonBody = dict[str, Any] | VZapsModel
 JsonDict = dict[str, Any]

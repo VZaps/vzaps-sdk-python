@@ -12,11 +12,18 @@ from .errors import (
     VZapsRealtimeError,
     VZapsTimeoutError,
 )
-from .models import RealtimeEvent, VZapsModel
+from .models import (
+    RealtimeEvent,
+    SessionStatusData,
+    SessionStatusResponse,
+    VZapsModel,
+)
 
 __all__ = [
     "AsyncVZapsClient",
     "RealtimeEvent",
+    "SessionStatusData",
+    "SessionStatusResponse",
     "VZapsAPIError",
     "VZapsAuthenticationError",
     "VZapsClient",

@@ -34,7 +34,10 @@ def test_main_resource_paths() -> None:
             return_value=httpx.Response(200, json={})
         ),
         respx.get("https://api.vzaps.com/instances/VZ1/session/status").mock(
-            return_value=httpx.Response(200, json={})
+            return_value=httpx.Response(
+                200,
+                json={"code": 200, "success": True, "data": {"connected": False}},
+            )
         ),
         respx.get("https://api.vzaps.com/instances/VZ1/group/list?page=1").mock(
             return_value=httpx.Response(200, json={})

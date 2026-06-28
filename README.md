@@ -1,6 +1,6 @@
 # VZaps Python SDK
 
-[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml)
+[![CI](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VZaps/vzaps-sdk-python/actions/workflows/ci.yml) [![SDK Documentation](https://img.shields.io/badge/SDK-Documentation-blue)](https://docs.vzaps.com/en/sdk/python/installation) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/vzaps.svg?logo=pypi&logoColor=white)](https://pypi.org/project/vzaps/)
 [![Python](https://img.shields.io/pypi/pyversions/vzaps.svg?logo=python&logoColor=white)](https://pypi.org/project/vzaps/)
 

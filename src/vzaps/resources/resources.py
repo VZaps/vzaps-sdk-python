@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from vzaps.http import HttpClient, HttpMethod
+from vzaps.models import SessionStatusResponse
 
 from ._helpers import body_or_none, merge_request, quote_path, split_instance_request
 
@@ -354,12 +355,15 @@ class SessionsResource:
     def __init__(self, http: HttpClient) -> None:
         self._http = http
 
-    def status(self, instance_id: str, *, instance_token: str | None = None) -> Any:
-        return self._http.request(
+    def status(
+        self, instance_id: str, *, instance_token: str | None = None
+    ) -> SessionStatusResponse:
+        raw = self._http.request(
             "GET",
             f"/instances/{quote_path(instance_id)}/session/status",
             instance_token=instance_token,
         )
+        return SessionStatusResponse.model_validate(raw)
 
     def qr(self, instance_id: str, *, instance_token: str | None = None) -> Any:
         return self._http.request(
